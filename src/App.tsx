@@ -17,7 +17,13 @@ function App() {
   const [breakTime, setBreakTime] = useState<dayjs.Dayjs | null>(dayjs('2022-04-17T01:00'));
 
   useEffect(() => {
-    document.body.style.zoom = '200%';
+    const isPC = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+    if (isPC) {
+      document.body.style.zoom = '200%';
+    } else {
+      document.body.style.zoom = '100%'; 
+    }
   }, []);
 
   const calculateTime = () => {
