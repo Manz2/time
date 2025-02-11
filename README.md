@@ -1,1 +1,4 @@
-https://manz2.github.io/time/
+
+```bash
+firebase deploy --only hosting
+```
