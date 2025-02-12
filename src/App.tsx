@@ -41,19 +41,25 @@ function App() {
 
   const calculateTime = () => {
     if (startTime && endTime && breakTime) {
-      const totalWorkMinutes = endTime.diff(startTime, 'minute');
-      const breakMinutes = breakTime.hour() * 60 + breakTime.minute(); // Umwandlung in Minuten
-      const netMinutes = totalWorkMinutes - breakMinutes;
+      // Stelle sicher, dass alle Zeiten das gleiche Datum haben
+      const today = dayjs().format('YYYY-MM-DD');
 
-      if (netMinutes < 0) return 'Invalid time';
+      const adjustedStartTime = dayjs(`${today}T${startTime.format('HH:mm')}`);
+      const adjustedEndTime = dayjs(`${today}T${endTime.format('HH:mm')}`);
+      const breakMinutes = breakTime.hour() * 60 + breakTime.minute(); // Pausenzeit in Minuten
 
-      const hours = Math.floor(netMinutes / 60);
-      const minutes = netMinutes % 60;
+      const totalMinutes = adjustedEndTime.diff(adjustedStartTime, 'minute') - breakMinutes;
+
+      if (totalMinutes < 0) return 'Invalid time';
+
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
 
       return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     }
     return 'Invalid time';
   };
+
 
 
   return (
