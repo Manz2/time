@@ -1,4 +1,3 @@
-// App.tsx
 import { CssBaseline, ThemeProvider, createTheme, Box, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,9 +11,16 @@ function App() {
     },
   });
 
-  const [startTime, setStartTime] = useState<dayjs.Dayjs | null>(dayjs('2022-04-17T08:00'));
-  const [endTime, setEndTime] = useState<dayjs.Dayjs | null>(dayjs('2022-04-17T17:00'));
-  const [breakTime, setBreakTime] = useState<dayjs.Dayjs | null>(dayjs('2022-04-17T01:00'));
+  const [startTime, setStartTime] = useState<dayjs.Dayjs | null>(
+    dayjs().hour(8).minute(0).second(0)
+  );
+  const [endTime, setEndTime] = useState<dayjs.Dayjs | null>(
+    dayjs().hour(17).minute(0).second(0)
+  );
+  const [breakTime, setBreakTime] = useState<dayjs.Dayjs | null>(
+    dayjs().hour(1).minute(0).second(0)
+  );
+
 
   useEffect(() => {
     const isPC = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -22,19 +28,33 @@ function App() {
     if (isPC) {
       document.body.style.zoom = '200%';
     } else {
-      document.body.style.zoom = '100%'; 
+      document.body.style.zoom = '100%';
+    }
+  }, []);
+
+  useEffect(() => {
+    const now = dayjs();
+    if (now.hour() >= 12) {
+      setEndTime(now);
     }
   }, []);
 
   const calculateTime = () => {
     if (startTime && endTime && breakTime) {
-      const totalMinutes = endTime.diff(startTime, 'minute') - breakTime.diff(dayjs('2022-04-17T00:00'), 'minute');
-      const hours = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
+      const totalWorkMinutes = endTime.diff(startTime, 'minute');
+      const breakMinutes = breakTime.hour() * 60 + breakTime.minute(); // Umwandlung in Minuten
+      const netMinutes = totalWorkMinutes - breakMinutes;
+
+      if (netMinutes < 0) return 'Invalid time';
+
+      const hours = Math.floor(netMinutes / 60);
+      const minutes = netMinutes % 60;
+
       return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     }
     return 'Invalid time';
   };
+
 
   return (
     <ThemeProvider theme={theme}>
