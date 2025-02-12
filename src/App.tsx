@@ -1,8 +1,10 @@
-import { CssBaseline, ThemeProvider, createTheme, Box, TextField } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme, Box, TextField, IconButton } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 function App() {
   const theme = createTheme({
@@ -11,25 +13,13 @@ function App() {
     },
   });
 
-  const [startTime, setStartTime] = useState<dayjs.Dayjs | null>(
-    dayjs().hour(8).minute(0).second(0)
-  );
-  const [endTime, setEndTime] = useState<dayjs.Dayjs | null>(
-    dayjs().hour(17).minute(0).second(0)
-  );
-  const [breakTime, setBreakTime] = useState<dayjs.Dayjs | null>(
-    dayjs().hour(1).minute(0).second(0)
-  );
-
+  const [startTime, setStartTime] = useState(dayjs().hour(8).minute(0).second(0));
+  const [endTime, setEndTime] = useState(dayjs().hour(17).minute(0).second(0));
+  const [breakTime, setBreakTime] = useState(dayjs().hour(1).minute(0).second(0));
 
   useEffect(() => {
     const isPC = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
-
-    if (isPC) {
-      document.body.style.zoom = '200%';
-    } else {
-      document.body.style.zoom = '100%';
-    }
+    document.body.style.zoom = isPC ? '200%' : '100%';
   }, []);
 
   useEffect(() => {
@@ -39,6 +29,17 @@ function App() {
     }
   }, []);
 
+  const adjustTimeToNearestQuarterHour = (time: dayjs.Dayjs, direction: 'up' | 'down') => {
+    const minute = time.minute();
+    const remainder = minute % 15;
+
+    if (direction === 'up') {
+      return time.add(15 - remainder, 'minute').second(0);
+    } else {
+      return time.subtract(remainder || 15, 'minute').second(0);
+    }
+  };
+
   const calculateTime = () => {
     if (startTime && endTime && breakTime) {
       const today = dayjs().format('YYYY-MM-DD');
@@ -46,13 +47,11 @@ function App() {
       let adjustedStartTime = dayjs(`${today}T${startTime.format('HH:mm')}`);
       let adjustedEndTime = dayjs(`${today}T${endTime.format('HH:mm')}`);
 
-      // Falls die Endzeit nach 0 Uhr ist (z. B. 00:30, 01:00), auf den nächsten Tag setzen
       if (adjustedEndTime.isBefore(adjustedStartTime)) {
         adjustedEndTime = adjustedEndTime.add(1, 'day');
       }
 
-      const breakMinutes = breakTime.hour() * 60 + breakTime.minute(); // Pausenzeit in Minuten
-
+      const breakMinutes = breakTime.hour() * 60 + breakTime.minute();
       const totalMinutes = adjustedEndTime.diff(adjustedStartTime, 'minute') - breakMinutes;
 
       if (totalMinutes < 0) return 'Invalid time';
@@ -64,9 +63,6 @@ function App() {
     }
     return 'Invalid time';
   };
-
-
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -83,27 +79,62 @@ function App() {
               gap: 2,
             }}
           >
-            <TextField
-              label="Start Time"
-              type="time"
-              value={startTime ? startTime.format('HH:mm') : ''}
-              onChange={(e) => setStartTime(dayjs(`2022-04-17T${e.target.value}`))}
-              sx={{ width: '300px' }}
-            />
-            <TextField
-              label="Break Time"
-              type="time"
-              value={breakTime ? breakTime.format('HH:mm') : ''}
-              onChange={(e) => setBreakTime(dayjs(`2022-04-17T${e.target.value}`))}
-              sx={{ width: '300px' }}
-            />
-            <TextField
-              label="End Time"
-              type="time"
-              value={endTime ? endTime.format('HH:mm') : ''}
-              onChange={(e) => setEndTime(dayjs(`2022-04-17T${e.target.value}`))}
-              sx={{ width: '300px' }}
-            />
+            {/* Start Time */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <TextField
+                label="Start Time"
+                type="time"
+                value={startTime.format('HH:mm')}
+                onChange={(e) => setStartTime(dayjs(`${dayjs().format('YYYY-MM-DD')}T${e.target.value}`))}
+                sx={{ width: '250px' }}
+              />
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <IconButton onClick={() => setStartTime(adjustTimeToNearestQuarterHour(startTime, 'up'))}>
+                  <AddIcon />
+                </IconButton>
+                <IconButton onClick={() => setStartTime(adjustTimeToNearestQuarterHour(startTime, 'down'))}>
+                  <RemoveIcon />
+                </IconButton>
+              </Box>
+            </Box>
+
+            {/* Break Time */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <TextField
+                label="Break Time"
+                type="time"
+                value={breakTime.format('HH:mm')}
+                onChange={(e) => setBreakTime(dayjs(`${dayjs().format('YYYY-MM-DD')}T${e.target.value}`))}
+                sx={{ width: '250px' }}
+              />
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <IconButton onClick={() => setBreakTime(adjustTimeToNearestQuarterHour(breakTime, 'up'))}>
+                  <AddIcon />
+                </IconButton>
+                <IconButton onClick={() => setBreakTime(adjustTimeToNearestQuarterHour(breakTime, 'down'))}>
+                  <RemoveIcon />
+                </IconButton>
+              </Box>
+            </Box>
+
+            {/* End Time */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <TextField
+                label="End Time"
+                type="time"
+                value={endTime.format('HH:mm')}
+                onChange={(e) => setEndTime(dayjs(`${dayjs().format('YYYY-MM-DD')}T${e.target.value}`))}
+                sx={{ width: '250px' }}
+              />
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <IconButton onClick={() => setEndTime(adjustTimeToNearestQuarterHour(endTime, 'up'))}>
+                  <AddIcon />
+                </IconButton>
+                <IconButton onClick={() => setEndTime(adjustTimeToNearestQuarterHour(endTime, 'down'))}>
+                  <RemoveIcon />
+                </IconButton>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </LocalizationProvider>
