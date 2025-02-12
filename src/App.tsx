@@ -41,11 +41,16 @@ function App() {
 
   const calculateTime = () => {
     if (startTime && endTime && breakTime) {
-      // Stelle sicher, dass alle Zeiten das gleiche Datum haben
       const today = dayjs().format('YYYY-MM-DD');
 
-      const adjustedStartTime = dayjs(`${today}T${startTime.format('HH:mm')}`);
-      const adjustedEndTime = dayjs(`${today}T${endTime.format('HH:mm')}`);
+      let adjustedStartTime = dayjs(`${today}T${startTime.format('HH:mm')}`);
+      let adjustedEndTime = dayjs(`${today}T${endTime.format('HH:mm')}`);
+
+      // Falls die Endzeit nach 0 Uhr ist (z. B. 00:30, 01:00), auf den nächsten Tag setzen
+      if (adjustedEndTime.isBefore(adjustedStartTime)) {
+        adjustedEndTime = adjustedEndTime.add(1, 'day');
+      }
+
       const breakMinutes = breakTime.hour() * 60 + breakTime.minute(); // Pausenzeit in Minuten
 
       const totalMinutes = adjustedEndTime.diff(adjustedStartTime, 'minute') - breakMinutes;
@@ -59,6 +64,7 @@ function App() {
     }
     return 'Invalid time';
   };
+
 
 
 
