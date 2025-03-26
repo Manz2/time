@@ -14,10 +14,11 @@ function App() {
   const [startTime, setStartTime] = useState(getInitialTime(8));
   const [endTime, setEndTime] = useState(getInitialTime(17));
   const [breakTime, setBreakTime] = useState(getInitialTime(1));
+  const sx = { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, }
 
   useEffect(() => {
     const isPC = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    document.body.style.zoom = isPC ? '200%' : '100%';
+    document.body.style.zoom = isPC ? '150%' : '100%';
   }, []);
 
   useEffect(() => {
@@ -60,15 +61,7 @@ function App() {
           <Typography variant="h2" sx={{ mb: 2 }}>
             {calculateTime()}
           </Typography>
-          <Box
-            component="form"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 2,
-            }}
-          >
+          <Box component="form" sx={sx}>
             <TimeInput value={startTime} onChange={setStartTime} >Start Time</TimeInput>
             <TimeInput value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
             <TimeInput value={endTime} onChange={setEndTime} >End Time</TimeInput>

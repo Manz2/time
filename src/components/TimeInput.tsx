@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, IconButton, TextField } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import dayjs, { Dayjs } from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 type Props = {
   children: React.ReactNode;
@@ -22,19 +23,17 @@ const adjustTimeToNearestQuarterHour = (time: dayjs.Dayjs, direction: 'up' | 'do
 };
 
 export const TimeInput = ({ children, value, onChange }: Props) => {
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = dayjs(`${value.format('YYYY-MM-DD')}T${e.target.value}`);
-    onChange(newTime);
-  };
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-      <TextField
+      <TimePicker
         label={children}
-        type="time"
-        value={value.format('HH:mm')}
-        onChange={handleTimeChange}
-        sx={{ width: '250px' }}
+        value={value}
+        onChange={(newValue) => {
+          onChange(newValue as Dayjs);
+        }}
+        ampm={false}
+        disableOpenPicker
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <IconButton onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}>

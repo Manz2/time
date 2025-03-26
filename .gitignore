@@ -22,4 +22,4 @@ dist-ssr
 *.sln
 *.sw?
 .firebaserc
-.firebase/hosting.ZGlzdA.cache
+.firebase/*
