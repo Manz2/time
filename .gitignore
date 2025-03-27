@@ -12,6 +12,7 @@ dist-ssr
 *.local
 .firebase/*
 dist
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,4 +23,3 @@ dist
 *.njsproj
 *.sln
 *.sw?
-.firebase/hosting.ZGlzdA.cache
