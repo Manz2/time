@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Snackbar, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Snackbar, Tooltip, Typography } from '@mui/material';
 
 type Props = {
-    children: React.ReactNode;
+    children: string | number;
 };
+
 const fontSize = {
     xs: '16vw',
-    sm: '12vw',
     md: '12vw',
     lg: '8vw',
 };
@@ -14,7 +14,7 @@ const fontSize = {
 export const Time = ({ children }: Props) => {
     const [open, setOpen] = useState(false);
 
-    const copyToClipboard = () => {
+    const handleCopyToClipboard = () => {
         if (children) {
             navigator.clipboard.writeText(children.toString());
             setOpen(true);
@@ -23,12 +23,25 @@ export const Time = ({ children }: Props) => {
 
     return (
         <>
-            <Typography variant="h2" sx={{ mb: 2 }} onClick={() => copyToClipboard()} fontSize={fontSize}>
-                {children}
-            </Typography>
+            <Tooltip title="Copie to clipboard">
+                <Typography
+                    role="button"
+                    tabIndex={0}
+                    onClick={handleCopyToClipboard}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            handleCopyToClipboard();
+                        }
+                    }}
+                    variant="h2"
+                    sx={{ mb: 2 }}
+                    fontSize={fontSize}>
+                    {children}
+                </Typography>
+            </Tooltip>
             <Snackbar
                 open={open}
-                autoHideDuration={1000}
+                autoHideDuration={2000}
                 onClose={() => setOpen(false)}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 slotProps={{

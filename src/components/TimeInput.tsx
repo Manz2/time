@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import dayjs, { Dayjs } from 'dayjs';
@@ -52,12 +52,20 @@ export const TimeInput = ({ children, value, onChange }: Props) => {
         }}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', fontSize }} >
-        <IconButton onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}>
-          <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
-        </IconButton>
-        <IconButton onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}>
-          <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
-        </IconButton>
+        <Tooltip title="Add 15 minutes">
+          <IconButton
+            onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}
+            aria-label="Add 15 minutes">
+            <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Subtract 15 minutes">
+          <IconButton
+            onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}
+            aria-label="Add 15 minutes">
+            <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
+          </IconButton>
+        </Tooltip>
       </Box>
     </Box>
   );
