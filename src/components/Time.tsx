@@ -23,7 +23,7 @@ export const Time = ({ children }: Props) => {
 
     return (
         <>
-            <Tooltip title="Copie to clipboard">
+            <Tooltip title="Copy to clipboard">
                 <Typography
                     role="button"
                     tabIndex={0}
