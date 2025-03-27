@@ -1,10 +1,11 @@
-import { CssBaseline, ThemeProvider, Box, Typography } from '@mui/material';
+import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { TimeInput } from './TimeInput';
 import { darkTheme } from '../util/theme';
+import { Time } from './Time.tsx';
 
 function App() {
 
@@ -58,9 +59,7 @@ function App() {
       <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Typography variant="h2" sx={{ mb: 2 }}>
-            {calculateTime()}
-          </Typography>
+          <Time>{calculateTime()}</Time>
           <Box component="form" sx={sx}>
             <TimeInput value={startTime} onChange={setStartTime} >Start Time</TimeInput>
             <TimeInput value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
