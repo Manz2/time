@@ -18,11 +18,6 @@ function App() {
   const sx = { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, }
 
   useEffect(() => {
-    const isPC = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    document.body.style.zoom = isPC ? '150%' : '100%';
-  }, []);
-
-  useEffect(() => {
     const now = dayjs();
     if (now.hour() >= 12) {
       setEndTime(now);

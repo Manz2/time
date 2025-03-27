@@ -22,8 +22,14 @@ const adjustTimeToNearestQuarterHour = (time: dayjs.Dayjs, direction: 'up' | 'do
   }
 };
 
-export const TimeInput = ({ children, value, onChange }: Props) => {
+const fontSize = {
+  xs: '6vw',
+  sm: '6vw',
+  md: '6vw',
+  lg: '3vw',
+};
 
+export const TimeInput = ({ children, value, onChange }: Props) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
       <TimePicker
@@ -34,13 +40,23 @@ export const TimeInput = ({ children, value, onChange }: Props) => {
         }}
         ampm={false}
         disableOpenPicker
+        slotProps={{
+          textField: {
+            sx: {
+              fontSize: fontSize,
+              input: {
+                fontSize: fontSize,
+              },
+            },
+          },
+        }}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', fontSize }} >
         <IconButton onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}>
-          <AddIcon />
+          <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
         </IconButton>
         <IconButton onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}>
-          <RemoveIcon />
+          <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
         </IconButton>
       </Box>
     </Box>
