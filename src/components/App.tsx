@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { TimeInput } from './TimeInput';
 import { darkTheme } from '../util/theme';
 import { Time } from './Time.tsx';
+import { GitHub } from './Github.tsx';
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
             <TimeInput value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
             <TimeInput value={endTime} onChange={setEndTime} >End Time</TimeInput>
           </Box>
+          <GitHub />
         </Box>
       </LocalizationProvider>
     </ThemeProvider>
