@@ -5,7 +5,7 @@
 
 **Time** is a web application designed to calculate working hours. Built using modern web technologies and deployed via **Firebase Hosting**.
 
-[try it out](https://time.gm25.software/)
+[try it out](time-97992.web.app)
 
 
 ## 🛠️ Tech Stack
