@@ -1,5 +1,7 @@
 # 🕒 Time
 
+[![Coverage Status](https://coveralls.io/repos/github/Manz2/time/badge.svg?branch=main)](https://coveralls.io/github/Manz2/time?branch=main)
+
 **Time** is a web application designed to calculate working hours. Built using modern web technologies and deployed via **Firebase Hosting**.
 
 
