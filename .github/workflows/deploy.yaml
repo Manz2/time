@@ -23,6 +23,11 @@ jobs:
       - name: Run tests
         run: npm run test:coverage
 
+      - name: Upload coverage to Coveralls
+        run: npx coveralls < coverage/lcov.info
+        env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
       - name: Build project
         run: npm run build
 
@@ -34,6 +39,6 @@ jobs:
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase
-        run: firebase deploy --only hosting --project dein-firebase-projekt-id --token "$(jq -r .token service-account.json)"
+        run: firebase deploy --only hosting --project time-97992 --token "$(jq -r .token service-account.json)"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
