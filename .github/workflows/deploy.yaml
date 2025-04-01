@@ -38,8 +38,8 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate with Firebase using Service Account
-        run: |
-          firebase deploy --only hosting --project time-97992 --token "$(firebase login:ci --no-localhost --service-account service-account.json --json | jq -r .credential.access_token)"
+      - name: Deploy to Firebase Hosting
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
+        run: firebase deploy --only hosting --project time-97992 --non-interactive
+
