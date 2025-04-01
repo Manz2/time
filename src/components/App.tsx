@@ -7,6 +7,8 @@ import { TimeInput } from './TimeInput';
 import { darkTheme } from '../util/theme';
 import { Time } from './Time.tsx';
 import { GitHub } from './Github.tsx';
+import { calculateTime } from '../util/calculateTime';
+
 
 function App() {
 
@@ -25,37 +27,12 @@ function App() {
     }
   }, []);
 
-
-  const calculateTime = () => {
-    if (startTime && endTime && breakTime) {
-      const today = dayjs().format('YYYY-MM-DD');
-
-      let adjustedStartTime = dayjs(`${today}T${startTime.format('HH:mm')}`);
-      let adjustedEndTime = dayjs(`${today}T${endTime.format('HH:mm')}`);
-
-      if (adjustedEndTime.isBefore(adjustedStartTime)) {
-        adjustedEndTime = adjustedEndTime.add(1, 'day');
-      }
-
-      const breakMinutes = breakTime.hour() * 60 + breakTime.minute();
-      const totalMinutes = adjustedEndTime.diff(adjustedStartTime, 'minute') - breakMinutes;
-
-      if (totalMinutes < 0) return 'Invalid time';
-
-      const hours = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
-
-      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    }
-    return 'Invalid time';
-  };
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Time>{calculateTime()}</Time>
+          <Time>{calculateTime(startTime, endTime, breakTime)}</Time>
           <Box component="section" sx={sx}>
             <TimeInput value={startTime} onChange={setStartTime} >Start Time</TimeInput>
             <TimeInput value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>

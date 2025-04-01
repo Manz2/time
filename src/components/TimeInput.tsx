@@ -62,7 +62,7 @@ export const TimeInput = ({ children, value, onChange }: Props) => {
         <Tooltip title="Subtract 15 minutes">
           <IconButton
             onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}
-            aria-label="Add 15 minutes">
+            aria-label="Subtract 15 minutes">
             <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
           </IconButton>
         </Tooltip>
