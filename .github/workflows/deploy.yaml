@@ -35,14 +35,11 @@ jobs:
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > service-account.json
 
-      - name: Install Firebase CLI and Google Cloud SDK
-        run: |
-          npm install -g firebase-tools
-          curl https://sdk.cloud.google.com | bash
-          source "$HOME/google-cloud-sdk/path.bash.inc"
-          gcloud auth activate-service-account --key-file=service-account.json
-          gcloud config set project time-97992
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
 
       - name: Deploy to Firebase Hosting
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
         run: |
-          firebase deploy --only hosting --project time-97992 --token "$(gcloud auth print-access-token)" --non-interactive
+          firebase deploy --only hosting --project time-97992 --non-interactive
