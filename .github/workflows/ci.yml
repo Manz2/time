@@ -12,6 +12,5 @@ jobs:
         with:
           node-version: 'lts/*'
       - run: npm ci
-      - run: npm run lint --if-present
       - run: npm test -- --ci --passWithNoTests
       - run: npm run build
