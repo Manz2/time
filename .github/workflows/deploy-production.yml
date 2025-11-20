@@ -81,7 +81,7 @@ jobs:
       - name: Download Playwright report artifact
         uses: actions/download-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-prod-report
           path: playwright-report
 
       - name: Move report into /playwright folder
