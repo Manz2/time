@@ -56,7 +56,7 @@ export const TimeInput = ({ children, value, onChange, testIdPrefix }: Props) =>
         }}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', fontSize }} >
-        <Tooltip title="Add 15 minutes">
+        <Tooltip title="Add 15 minutes" placement="right">
           <IconButton
             onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}
             aria-label="Add 15 minutes"
@@ -64,7 +64,7 @@ export const TimeInput = ({ children, value, onChange, testIdPrefix }: Props) =>
             <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Subtract 15 minutes">
+        <Tooltip title="Subtract 15 minutes" placement="right">
           <IconButton
             onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}
             aria-label="Subtract 15 minutes"
