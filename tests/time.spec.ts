@@ -12,7 +12,7 @@ test('all components are visible', async ({ page }) => {
   await expect(page.getByTestId('end-input')).toBeVisible();
   await expect(page.getByTestId('total-time')).toBeVisible();
   await expect(page.getByTestId('github-image')).toBeVisible();
-   await expect(page.getByTestId('start-plus')).toBeVisible();
+  await expect(page.getByTestId('start-plus')).toBeVisible();
   await expect(page.getByTestId('start-minus')).toBeVisible();
   await expect(page.getByTestId('break-plus')).toBeVisible();
   await expect(page.getByTestId('break-minus')).toBeVisible();
