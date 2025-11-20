@@ -1,8 +1,8 @@
-name: Deploy to Firebase
+name: Deploy to Firebase (Production)
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
+      - name: Run unit tests
         run: npm run test:coverage
 
       - name: Upload coverage to Coveralls
@@ -38,8 +38,25 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting (Prod)
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
         run: |
           firebase deploy --only hosting --project time-97992 --non-interactive
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright SMOKE tests against Production
+        env:
+          BASE_URL: https://time-97992.web.app
+        run: |
+          echo "Running Playwright SMOKE tests against $BASE_URL"
+          npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-prod-smoke-report
+          path: playwright-report/
+          retention-days: 7

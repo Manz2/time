@@ -1,14 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-const url = "https://time-97992.web.app"
-
 test('has title', async ({ page }) => {
-  await page.goto(url);
+  await page.goto('');
   await expect(page).toHaveTitle("time");
 });
 
 test('github link', async ({ page }) => {
-  await page.goto(url);
+  await page.goto('');
 
   const [githubPage] = await Promise.all([
     page.waitForEvent('popup'),
