@@ -23,6 +23,7 @@ describe('Time component', () => {
     it('renders the provided text', () => {
         render(<Time>{testText}</Time>);
         expect(screen.getByRole('button')).toHaveTextContent(testText);
+        expect(screen.getByTestId('total-time')).toBeInTheDocument();
     });
 
     it('copies text to clipboard on click', async () => {

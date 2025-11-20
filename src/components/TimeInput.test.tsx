@@ -16,34 +16,37 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 describe('TimeInput component', () => {
     const baseTime = dayjs('2025-04-01T12:07:00');
     const handleChange = jest.fn();
+    const renderComponent = () =>
+        render(
+            <TimeInput testIdPrefix="start" value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
+            { wrapper: Wrapper }
+        );
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
     it('renders with label', () => {
-        render(
-            <TimeInput value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
-            { wrapper: Wrapper }
-        );
+        renderComponent();
         expect(screen.getByLabelText(/start time/i)).toBeInTheDocument();
     });
 
+    it('exposes test ids for input and controls', () => {
+        renderComponent();
+        expect(screen.getByTestId('start-input')).toBeInTheDocument();
+        expect(screen.getByTestId('start-plus')).toBeInTheDocument();
+        expect(screen.getByTestId('start-minus')).toBeInTheDocument();
+    });
+
     it('adds 15 minutes when clicking "+"', async () => {
-        render(
-            <TimeInput value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
-            { wrapper: Wrapper }
-        );
+        renderComponent();
         const addBtn = screen.getByRole('button', { name: 'Add 15 minutes' });
         await userEvent.click(addBtn);
         expect(handleChange).toHaveBeenCalledWith(dayjs('2025-04-01T12:15:00'));
     });
 
     it('subtracts 15 minutes when clicking "-"', async () => {
-        render(
-            <TimeInput value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
-            { wrapper: Wrapper }
-        );
+        renderComponent();
 
         const subtractBtn = screen.getByRole('button', { name: 'Subtract 15 minutes' });
         await userEvent.click(subtractBtn);
@@ -51,10 +54,7 @@ describe('TimeInput component', () => {
     });
 
     it('shows both tooltips on hover', async () => {
-        render(
-            <TimeInput value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
-            { wrapper: Wrapper }
-        );
+        renderComponent();
         const [plusBtn, minusBtn] = screen.getAllByRole('button');
 
         await userEvent.hover(plusBtn);
@@ -68,7 +68,7 @@ describe('TimeInput component', () => {
     it('subtracts 15 minutes if already on a quarter hour', async () => {
         const rounded = dayjs('2025-04-01T12:15:00');
         render(
-            <TimeInput value={rounded} onChange={handleChange}>Start Time</TimeInput>,
+            <TimeInput testIdPrefix="start" value={rounded} onChange={handleChange}>Start Time</TimeInput>,
             { wrapper: Wrapper }
         );
 
@@ -79,10 +79,7 @@ describe('TimeInput component', () => {
     });
 
     it('calls onChange when time is changed via picker', () => {
-        render(
-            <TimeInput value={baseTime} onChange={handleChange}>Start Time</TimeInput>,
-            { wrapper: Wrapper }
-        );
+        renderComponent();
 
         const input = screen.getByLabelText(/start time/i) as HTMLInputElement;
 

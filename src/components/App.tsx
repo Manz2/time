@@ -34,9 +34,9 @@ function App() {
         <Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
           <Time>{calculateTime(startTime, endTime, breakTime)}</Time>
           <Box component="section" sx={sx}>
-            <TimeInput value={startTime} onChange={setStartTime} >Start Time</TimeInput>
-            <TimeInput value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
-            <TimeInput value={endTime} onChange={setEndTime} >End Time</TimeInput>
+            <TimeInput testIdPrefix="start" value={startTime} onChange={setStartTime} >Start Time</TimeInput>
+            <TimeInput testIdPrefix="break" value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
+            <TimeInput testIdPrefix="end" value={endTime} onChange={setEndTime} >End Time</TimeInput>
           </Box>
           <GitHub />
         </Box>
