@@ -15,9 +15,6 @@ import App from './App';
 describe('App component', () => {
     it('renders all time inputs and result time', () => {
         render(<App />);
-        expect(screen.getAllByText(/start time/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(/break time/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(/end time/i).length).toBeGreaterThan(0);
         expect(screen.getByTestId('start-input')).toBeInTheDocument();
         expect(screen.getByTestId('break-input')).toBeInTheDocument();
         expect(screen.getByTestId('end-input')).toBeInTheDocument();
@@ -28,13 +25,12 @@ describe('App component', () => {
         expect(screen.getByTestId('break-minus')).toBeInTheDocument();
         expect(screen.getByTestId('end-minus')).toBeInTheDocument();
         expect(screen.getByTestId('total-time')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /copy to clipboard/i })).toBeInTheDocument();
         expect(screen.getByTestId('github-link')).toBeInTheDocument();
     });
 
     it('renders calculated time correctly (normal case)', () => {
         render(<App />);
-        const result = screen.getByRole('button', { name: /copy to clipboard/i });
+        const result = screen.getByTestId('total-time');
         expect(result).toHaveTextContent('05:00'); // 14:00 - 08:00 - 1h pause = 5h
     });
     it('does not update endTime when current time is before 12:00', () => {

@@ -5,7 +5,7 @@ import { GitHub } from './Github.tsx';
 describe('GitHub component', () => {
     it('shows tooltip on hover', async () => {
         render(<GitHub />);
-        const image = screen.getByAltText('GitHub');
+        const image = screen.getByTestId('github-image');
 
         await userEvent.hover(image);
 
