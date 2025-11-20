@@ -45,6 +45,7 @@ export const Time = ({ children }: Props) => {
                 autoHideDuration={2000}
                 onClose={() => setOpen(false)}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                data-testid="copy-snackbar"
                 slotProps={{
                     content: {
                         sx: {
@@ -54,7 +55,7 @@ export const Time = ({ children }: Props) => {
                         },
                     },
                 }}
-                message="Copied to clipboard"
+                message={<span data-testid="copy-snackbar-message">Copied to clipboard</span>}
             />
         </>
     );

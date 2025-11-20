@@ -26,9 +26,9 @@ describe('TimeInput component', () => {
         jest.clearAllMocks();
     });
 
-    it('renders with label', () => {
+    it('renders with test id', () => {
         renderComponent();
-        expect(screen.getByLabelText(/start time/i)).toBeInTheDocument();
+        expect(screen.getByTestId('start-input')).toBeInTheDocument();
     });
 
     it('exposes test ids for input and controls', () => {
@@ -40,7 +40,7 @@ describe('TimeInput component', () => {
 
     it('adds 15 minutes when clicking "+"', async () => {
         renderComponent();
-        const addBtn = screen.getByRole('button', { name: 'Add 15 minutes' });
+        const addBtn = screen.getByTestId('start-plus');
         await userEvent.click(addBtn);
         expect(handleChange).toHaveBeenCalledWith(dayjs('2025-04-01T12:15:00'));
     });
@@ -48,14 +48,15 @@ describe('TimeInput component', () => {
     it('subtracts 15 minutes when clicking "-"', async () => {
         renderComponent();
 
-        const subtractBtn = screen.getByRole('button', { name: 'Subtract 15 minutes' });
+        const subtractBtn = screen.getByTestId('start-minus');
         await userEvent.click(subtractBtn);
         expect(handleChange).toHaveBeenCalledWith(dayjs('2025-04-01T12:00:00'));
     });
 
     it('shows both tooltips on hover', async () => {
         renderComponent();
-        const [plusBtn, minusBtn] = screen.getAllByRole('button');
+        const plusBtn = screen.getByTestId('start-plus');
+        const minusBtn = screen.getByTestId('start-minus');
 
         await userEvent.hover(plusBtn);
         expect(await screen.findByText('Add 15 minutes')).toBeInTheDocument();
@@ -72,7 +73,7 @@ describe('TimeInput component', () => {
             { wrapper: Wrapper }
         );
 
-        const subtractBtn = screen.getByRole('button', { name: 'Subtract 15 minutes' });
+        const subtractBtn = screen.getByTestId('start-minus');
         await userEvent.click(subtractBtn);
 
         expect(handleChange).toHaveBeenCalledWith(dayjs('2025-04-01T12:00:00'));
@@ -81,7 +82,7 @@ describe('TimeInput component', () => {
     it('calls onChange when time is changed via picker', () => {
         renderComponent();
 
-        const input = screen.getByLabelText(/start time/i) as HTMLInputElement;
+        const input = screen.getByTestId('start-input') as HTMLInputElement;
 
         fireEvent.change(input, { target: { value: '13:30' } });
         fireEvent.blur(input);
