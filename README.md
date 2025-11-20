@@ -14,6 +14,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [Material UI](https://mui.com/)
 - [Firebase Hosting](https://firebase.google.com/)
+- [Playwright](https://playwright.dev/) [(view results)](https://manz2.github.io/time/playwright/)
 
 ## 📄 License
 This project is licensed under the MIT License. You’re free to use, modify, and distribute it.
