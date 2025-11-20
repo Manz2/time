@@ -13,6 +13,7 @@ export default {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   collectCoverage: true,
   collectCoverageFrom: ["src/components/**/*.{ts,tsx}", "!src/**/*.test.{ts,tsx}"],
+  testMatch: ['<rootDir>/src/**/*.test.(ts|tsx|js)'],
   coverageThreshold: {
     global: {
       branches: 80,
