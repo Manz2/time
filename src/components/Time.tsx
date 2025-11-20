@@ -35,7 +35,8 @@ export const Time = ({ children }: Props) => {
                     }}
                     variant="h2"
                     sx={{ mb: 2 }}
-                    fontSize={fontSize}>
+                    fontSize={fontSize}
+                    data-testid="total-time">
                     {children}
                 </Typography>
             </Tooltip>

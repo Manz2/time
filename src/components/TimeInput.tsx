@@ -9,6 +9,7 @@ type Props = {
   children: React.ReactNode;
   value: Dayjs;
   onChange: (newValue: Dayjs) => void;
+  testIdPrefix: string;
 };
 
 const adjustTimeToNearestQuarterHour = (time: dayjs.Dayjs, direction: 'up' | 'down') => {
@@ -29,7 +30,7 @@ const fontSize = {
   lg: '3vw',
 };
 
-export const TimeInput = ({ children, value, onChange }: Props) => {
+export const TimeInput = ({ children, value, onChange, testIdPrefix }: Props) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
       <TimePicker
@@ -42,6 +43,9 @@ export const TimeInput = ({ children, value, onChange }: Props) => {
         disableOpenPicker
         slotProps={{
           textField: {
+            inputProps: {
+              'data-testid': `${testIdPrefix}-input`,
+            },
             sx: {
               fontSize: fontSize,
               input: {
@@ -55,14 +59,16 @@ export const TimeInput = ({ children, value, onChange }: Props) => {
         <Tooltip title="Add 15 minutes">
           <IconButton
             onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'up'))}
-            aria-label="Add 15 minutes">
+            aria-label="Add 15 minutes"
+            data-testid={`${testIdPrefix}-plus`}>
             <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
           </IconButton>
         </Tooltip>
         <Tooltip title="Subtract 15 minutes">
           <IconButton
             onClick={() => onChange(adjustTimeToNearestQuarterHour(value, 'down'))}
-            aria-label="Subtract 15 minutes">
+            aria-label="Subtract 15 minutes"
+            data-testid={`${testIdPrefix}-minus`}>
             <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
           </IconButton>
         </Tooltip>
