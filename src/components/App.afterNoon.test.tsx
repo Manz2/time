@@ -18,8 +18,18 @@ describe('App component', () => {
         expect(screen.getAllByText(/start time/i).length).toBeGreaterThan(0);
         expect(screen.getAllByText(/break time/i).length).toBeGreaterThan(0);
         expect(screen.getAllByText(/end time/i).length).toBeGreaterThan(0);
+        expect(screen.getByTestId('start-input')).toBeInTheDocument();
+        expect(screen.getByTestId('break-input')).toBeInTheDocument();
+        expect(screen.getByTestId('end-input')).toBeInTheDocument();
+        expect(screen.getByTestId('start-plus')).toBeInTheDocument();
+        expect(screen.getByTestId('break-plus')).toBeInTheDocument();
+        expect(screen.getByTestId('end-plus')).toBeInTheDocument();
+        expect(screen.getByTestId('start-minus')).toBeInTheDocument();
+        expect(screen.getByTestId('break-minus')).toBeInTheDocument();
+        expect(screen.getByTestId('end-minus')).toBeInTheDocument();
+        expect(screen.getByTestId('total-time')).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /copy to clipboard/i })).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: /GitHub/i })).toBeInTheDocument();
+        expect(screen.getByTestId('github-link')).toBeInTheDocument();
     });
 
     it('renders calculated time correctly (normal case)', () => {

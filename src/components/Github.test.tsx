@@ -14,7 +14,7 @@ describe('GitHub component', () => {
 
     it('renders link with correct attributes', () => {
         render(<GitHub />);
-        const link = screen.getByRole('link');
+        const link = screen.getByTestId('github-link');
         expect(link).toHaveAttribute('href', 'https://github.com/Manz2/time');
         expect(link).toHaveAttribute('target', '_blank');
         expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -22,7 +22,7 @@ describe('GitHub component', () => {
 
     it('renders GitHub image with correct attributes', () => {
         render(<GitHub />);
-        const img = screen.getByAltText('GitHub');
+        const img = screen.getByTestId('github-image');
         expect(img).toBeInTheDocument();
         expect(img).toHaveAttribute('src', '/github.png');
     });
