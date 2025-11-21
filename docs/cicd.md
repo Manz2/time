@@ -27,6 +27,31 @@ Triggered on pushes to main:
 3. Scheduled Dependency Updates
 Dependabot runs weekly to update direct dependencies except major versions.
 
+## Automated Release Workflow
+
+Releases are fully automated and triggered on each push to the `main` branch.  
+The CI pipeline executes semantic-release, which performs the following steps:
+
+1. **Analyze commit messages** using the Conventional Commits format.
+2. **Determine the next version** (patch, minor, major).
+3. **Update the changelog** (`docs/changelog.md`) using the official changelog plugin.
+4. **Update `package.json`** with the new version number.
+5. **Create and push a Git tag** for the release.
+6. **Create a GitHub Release** including auto-generated release notes.
+7. **Commit updated files** back to the repository.
+
+### Branch Strategy
+Release automation only runs on the `main` branch.  
+Pull requests are validated using a PR title linter to ensure that all PR titles follow the Conventional Commits format. This guarantees predictable and consistent versioning during the release step.
+
+### Benefits
+- No manual tagging  
+- No manual changelog editing  
+- Prevents inconsistent versioning  
+- Provides clear release notes for every version  
+- Works seamlessly with automated deployments
+
+
 # Goals of the Pipeline
 
 - Prevent merging untested code

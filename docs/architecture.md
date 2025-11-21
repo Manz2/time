@@ -33,6 +33,24 @@ src/
   tests/        # Unit and integration tests
   App.tsx       # Main application entry point
 ```
+
+## Release and Versioning Architecture
+
+The project uses a fully automated release pipeline powered by semantic-release.  
+This system analyzes commit messages, determines the next semantic version, generates release notes, updates the changelog, and publishes a GitHub Release without any manual steps.
+
+### Key Concepts
+- **Conventional Commits** are used as the single source of truth for determining the release type (patch, minor, major).
+- **semantic-release** performs:
+  - Version analysis (`fix`, `feat`, `feat!`)
+  - Automatic version bump of `package.json`
+  - Changelog generation (stored under `docs/changelog.md`)
+  - Git tagging
+  - Publishing GitHub Releases
+
+### Why this matters
+This architecture ensures consistent versioning, reproducible releases, and transparent change history. It also removes human error from the release process and integrates seamlessly with the CI/CD pipelines.
+
 # Design Goals
 
 - High readability and clean code

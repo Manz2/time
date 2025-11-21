@@ -23,3 +23,17 @@ npx prettier --write .
 ```bash
 mkdocs serve
 ```
+
+## PR Title Rules
+valid titles:
+```
+feat: add dark mode
+fix: correct time calculation
+chore: update dependencies
+refactor: cleanup input parsing
+docs: add architecture overview
+test: improve unit tests
+perf: optimize render loop
+feat!: change initial input format
+
+```
