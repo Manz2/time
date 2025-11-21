@@ -1,0 +1,40 @@
+site_name: Time App
+site_description: Moderne Zeitrechner-App mit React, Jest, Playwright und CI/CD
+site_author: Erik
+repo_url: https://github.com/Manz2/time
+repo_name: Manz2/time
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - toc.integrate
+    - navigation.footer
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+  - plantuml_markdown:
+      server: "https://www.plantuml.com/plantuml"
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - CI/CD: cicd.md
+  - Tests:
+      - Unit Tests: unit-tests.md
+      - Playwright E2E: playwright.md
+  - Release Notes: changelog.md
+  - DEV Tips: dev-tips.md

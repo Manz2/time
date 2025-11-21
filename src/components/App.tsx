@@ -9,16 +9,19 @@ import { Time } from './Time.tsx';
 import { GitHub } from './Github.tsx';
 import { calculateTime } from '../util/calculateTime';
 
-
 function App() {
-
   const createTimeToday = (hour: number, minute: number = 0) =>
     dayjs().hour(hour).minute(minute).second(0).millisecond(0);
 
   const [startTime, setStartTime] = useState(createTimeToday(8));
   const [endTime, setEndTime] = useState(createTimeToday(17));
   const [breakTime, setBreakTime] = useState(createTimeToday(1));
-  const sx = { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, }
+  const sx = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 2,
+  };
 
   useEffect(() => {
     const now = dayjs();
@@ -34,9 +37,23 @@ function App() {
         <Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
           <Time>{calculateTime(startTime, endTime, breakTime)}</Time>
           <Box component="section" sx={sx}>
-            <TimeInput testIdPrefix="start" value={startTime} onChange={setStartTime} >Start Time</TimeInput>
-            <TimeInput testIdPrefix="break" value={breakTime} onChange={setBreakTime} >Break Time</TimeInput>
-            <TimeInput testIdPrefix="end" value={endTime} onChange={setEndTime} >End Time</TimeInput>
+            <TimeInput
+              testIdPrefix="start"
+              value={startTime}
+              onChange={setStartTime}
+            >
+              Start Time
+            </TimeInput>
+            <TimeInput
+              testIdPrefix="break"
+              value={breakTime}
+              onChange={setBreakTime}
+            >
+              Break Time
+            </TimeInput>
+            <TimeInput testIdPrefix="end" value={endTime} onChange={setEndTime}>
+              End Time
+            </TimeInput>
           </Box>
           <GitHub />
         </Box>

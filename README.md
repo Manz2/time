@@ -7,7 +7,6 @@
 
 [try it out](https://time-97992.web.app/)
 
-
 ## 🛠️ Tech Stack
 
 - [React](https://reactjs.org/)
@@ -17,12 +16,13 @@
 - [Playwright](https://playwright.dev/) [(view results)](https://manz2.github.io/time/playwright/)
 
 ## 📄 License
+
 This project is licensed under the MIT License. You’re free to use, modify, and distribute it.
 
-
 ## ✨ Author
+
 Built by @Manz2
 
-
 ## 🤝 Contributing
+
 Feedback, suggestions, and pull requests are welcome! If you find a bug or have a cool idea — feel free to open an issue.

@@ -1,23 +1,23 @@
 version: 2
 
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
     allow:
-      - dependency-type: "direct"
+      - dependency-type: 'direct'
     versioning-strategy: increase-if-necessary
     ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
 
 automerged_updates:
   - match:
-      dependency_type: "direct"
-      update_type: "version-update:semver-minor"
+      dependency_type: 'direct'
+      update_type: 'version-update:semver-minor'
   - match:
-      dependency_type: "direct"
-      update_type: "version-update:semver-patch"
+      dependency_type: 'direct'
+      update_type: 'version-update:semver-patch'

@@ -1,18 +1,21 @@
 export default {
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   transform: {
-    "^.+\\.(ts|tsx)$": [
-      "ts-jest",
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
       {
         useESM: true,
-        tsconfig: "tsconfig.app.json"
+        tsconfig: 'tsconfig.app.json',
       },
     ],
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   collectCoverage: true,
-  collectCoverageFrom: ["src/components/**/*.{ts,tsx}", "!src/**/*.test.{ts,tsx}"],
+  collectCoverageFrom: [
+    'src/components/**/*.{ts,tsx}',
+    '!src/**/*.test.{ts,tsx}',
+  ],
   testMatch: ['<rootDir>/src/**/*.test.(ts|tsx|js)'],
   coverageThreshold: {
     global: {
