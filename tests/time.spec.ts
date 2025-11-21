@@ -32,7 +32,7 @@ test.describe('links', () => {
     ]);
 
     await githubPage.waitForLoadState();
-    await expect(githubPage).toHaveTitle('GitHub - Manz2/time');
+    await expect(githubPage).toHaveURL(/github\.com\/Manz2\/time/);
   });
 });
 
