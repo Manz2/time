@@ -59,8 +59,8 @@ jobs:
           echo "Running Playwright tests against $BASE_URL"
           npx playwright test
 
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+      - name: Upload Playwright report as artifact
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-prod-report
           path: playwright-report/
@@ -68,11 +68,9 @@ jobs:
 
   deploy-pages:
     needs: build-and-deploy
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.build-and-deploy.result == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -84,10 +82,22 @@ jobs:
           name: playwright-prod-report
           path: playwright-report
 
-      - name: Move report into /playwright folder
+      - name: Setup Python for MkDocs
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install MkDocs + plugins
         run: |
-          mkdir -p public/playwright
-          cp -r playwright-report/* public/playwright/
+          pip install mkdocs mkdocs-material plantuml-markdown mkdocs-awesome-pages-plugin
+
+      - name: Build MkDocs
+        run: mkdocs build --clean
+
+      - name: Combine Playwright report into MkDocs site
+        run: |
+          mkdir -p site/playwright
+          cp -r playwright-report/* site/playwright/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -95,7 +105,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: site
 
       - name: Deploy to GitHub Pages
         id: deployment
