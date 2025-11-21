@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('page basics', () => {
   test('has title', async ({ page }) => {
     await page.goto('');
-    await expect(page).toHaveTitle("time");
+    await expect(page).toHaveTitle('time');
   });
 
   test('all components are visible', async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe('links', () => {
     ]);
 
     await githubPage.waitForLoadState();
-    await expect(githubPage).toHaveTitle("GitHub - Manz2/time");
+    await expect(githubPage).toHaveURL(/github\.com\/Manz2\/time/);
   });
 });
 
@@ -44,7 +44,9 @@ test.describe('@desktopOnly time calculations', () => {
     await page.getByTestId('break-input').fill('00:30');
     await expect(page.getByTestId('total-time')).toHaveText('09:00');
     await page.getByTestId('total-time').click();
-    await expect(page.getByTestId('copy-snackbar-message')).toHaveText('Copied to clipboard');
+    await expect(page.getByTestId('copy-snackbar-message')).toHaveText(
+      'Copied to clipboard'
+    );
   });
 
   test('change start time with buttons', async ({ page }) => {

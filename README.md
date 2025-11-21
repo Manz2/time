@@ -7,22 +7,27 @@
 
 [try it out](https://time-97992.web.app/)
 
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Material UI](https://mui.com/)
 - [Firebase Hosting](https://firebase.google.com/)
 - [Playwright](https://playwright.dev/) [(view results)](https://manz2.github.io/time/playwright/)
+- [MkDocs](https://www.mkdocs.org/)
 
-## 📄 License
+## Documentation
+
+[view documentation](https://manz2.github.io/time)
+
+## License
+
 This project is licensed under the MIT License. You’re free to use, modify, and distribute it.
 
+## Author
 
-## ✨ Author
 Built by @Manz2
 
+## Contributing
 
-## 🤝 Contributing
 Feedback, suggestions, and pull requests are welcome! If you find a bug or have a cool idea — feel free to open an issue.
