@@ -3,6 +3,7 @@
 The application is a simple time calculator built with React and TypeScript. Although the feature set is small, the architecture follows scalable patterns suitable for larger applications.
 
 # Key Architectural Concepts
+
 ## Component-Based Structure
 
 All UI pieces are implemented as isolated React components with their own state and props. This simplifies testing and maintenance.
@@ -40,6 +41,7 @@ The project uses a fully automated release pipeline powered by semantic-release.
 This system analyzes commit messages, determines the next semantic version, generates release notes, updates the changelog, and publishes a GitHub Release without any manual steps.
 
 ### Key Concepts
+
 - **Conventional Commits** are used as the single source of truth for determining the release type (patch, minor, major).
 - **semantic-release** performs:
   - Version analysis (`fix`, `feat`, `feat!`)
@@ -49,6 +51,7 @@ This system analyzes commit messages, determines the next semantic version, gene
   - Publishing GitHub Releases
 
 ### Why this matters
+
 This architecture ensures consistent versioning, reproducible releases, and transparent change history. It also removes human error from the release process and integrates seamlessly with the CI/CD pipelines.
 
 # Design Goals
@@ -59,6 +62,7 @@ This architecture ensures consistent versioning, reproducible releases, and tran
 - Deterministic time results for reliable tests
 
 # Diagram
+
 ```plantuml
 @startuml
 title Application Architecture Overview

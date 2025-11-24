@@ -11,6 +11,7 @@ npx playwright test tests/time.spec.ts:68 --project=firefox --headed --debug
 ```
 
 ## Eslint & Prettier
+
 ```bash
 # start check
 npm run lint
@@ -19,13 +20,17 @@ npm run lint
 npm run lint -- --fix
 npx prettier --write .
 ```
+
 ## MkDocs
+
 ```bash
 mkdocs serve
 ```
 
 ## PR Title Rules
+
 valid titles:
+
 ```
 feat: add dark mode
 fix: correct time calculation

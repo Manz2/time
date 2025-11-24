@@ -21,10 +21,10 @@ Playwright is used for automated end-to-end tests that run both on preview deplo
 The Playwright tests run in two environments:
 
 1. Pull Request Preview
-Ensures changes don’t break UI before merging.
+   Ensures changes don’t break UI before merging.
 
 2. Production Deployment
-Verifies that the deployed version behaves as expected.
+   Verifies that the deployed version behaves as expected.
 
 # Reports
 

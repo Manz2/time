@@ -5,27 +5,19 @@ This project demonstrates a complete CI/CD setup built around GitHub Actions. Th
 # CI/CD Pipeline Stages
 
 1. Pull Request Workflow
-
-    - Install dependencies
-    - Run ESLint
-    - Run Jest unit tests with coverage
-    - Build the project
-    - Deploy a temporary Firebase Hosting preview channel
-    - Run Playwright E2E tests against the preview environment
-    - Publish Playwright reports as build artifacts
+   - Install dependencies
+   - Run ESLint
+   - Run Jest unit tests with coverage
+   - Build the project
+   - Deploy a temporary Firebase Hosting preview channel
+   - Run Playwright E2E tests against the preview environment
+   - Publish Playwright reports as build artifacts
 
 2. Production Deployment Workflow
-Triggered on pushes to main:
-    - Install dependencies
-    - Lint and test
-    - Upload coverage to Codecov
-    - Build production output
-    - Deploy to Firebase Hosting
-    - Run Playwright tests against production
-    - Publish reports and documentation to GitHub Pages
+   Triggered on pushes to main: - Install dependencies - Lint and test - Upload coverage to Codecov - Build production output - Deploy to Firebase Hosting - Run Playwright tests against production - Publish reports and documentation to GitHub Pages
 
 3. Scheduled Dependency Updates
-Dependabot runs weekly to update direct dependencies except major versions.
+   Dependabot runs weekly to update direct dependencies except major versions.
 
 ## Automated Release Workflow
 
@@ -41,16 +33,17 @@ The CI pipeline executes semantic-release, which performs the following steps:
 7. **Commit updated files** back to the repository.
 
 ### Branch Strategy
+
 Release automation only runs on the `main` branch.  
 Pull requests are validated using a PR title linter to ensure that all PR titles follow the Conventional Commits format. This guarantees predictable and consistent versioning during the release step.
 
 ### Benefits
-- No manual tagging  
-- No manual changelog editing  
-- Prevents inconsistent versioning  
-- Provides clear release notes for every version  
-- Works seamlessly with automated deployments
 
+- No manual tagging
+- No manual changelog editing
+- Prevents inconsistent versioning
+- Provides clear release notes for every version
+- Works seamlessly with automated deployments
 
 # Goals of the Pipeline
 
@@ -61,6 +54,7 @@ Pull requests are validated using a PR title linter to ensure that all PR titles
 - Enforce code quality with linting and formatting
 
 # Diagram
+
 ```plantuml
 @startuml
 title CI/CD Pipeline Overview

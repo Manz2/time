@@ -27,7 +27,7 @@ markdown_extensions:
   - toc:
       permalink: true
   - plantuml_markdown:
-      server: "https://www.plantuml.com/plantuml"
+      server: 'https://www.plantuml.com/plantuml'
 
 nav:
   - Home: index.md

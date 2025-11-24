@@ -30,4 +30,4 @@ jobs:
             ci
           requireScope: false
           subjectPattern: ^.+$
-          subjectPatternError: "The subject must not be empty."
+          subjectPatternError: 'The subject must not be empty.'
