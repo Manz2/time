@@ -39,13 +39,6 @@ const fontSize = {
   lg: '3vw',
 };
 
-const fieldSize = {
-  xs: '34vw',
-  sm: '30vw',
-  md: '24vw',
-  lg: '13vw',
-};
-
 const fieldHeight = {
   xs: '14vw',
   sm: '12vw',
