@@ -39,6 +39,27 @@ const fontSize = {
   lg: '3vw',
 };
 
+const fieldSize = {
+  xs: '34vw',
+  sm: '30vw',
+  md: '24vw',
+  lg: '13vw',
+};
+
+const fieldHeight = {
+  xs: '14vw',
+  sm: '12vw',
+  md: '10vw',
+  lg: '5.5vw',
+};
+
+const getHtmlInputProps = (testIdPrefix: string) =>
+  ({
+    'data-testid': `${testIdPrefix}-input`,
+  }) as React.InputHTMLAttributes<HTMLInputElement> & {
+    'data-testid': string;
+  };
+
 export const TimeInput = ({
   children,
   value,
@@ -57,13 +78,30 @@ export const TimeInput = ({
         disableOpenPicker
         slotProps={{
           textField: {
-            inputProps: {
-              'data-testid': `${testIdPrefix}-input`,
+            slotProps: {
+              htmlInput: getHtmlInputProps(testIdPrefix),
             },
             sx: {
-              fontSize: fontSize,
-              input: {
-                fontSize: fontSize,
+              width: { xs: '70vw', md: '40vw', lg: '25vw' },
+              '& .MuiPickersInputBase-root, & .MuiInputBase-root': {
+                fontSize,
+                minHeight: fieldHeight,
+              },
+              
+              '& .MuiPickersSectionList-root, & .MuiPickersInputBase-input, & input':
+                {
+                  fontSize,
+                  lineHeight: 1.2,
+                },
+              '& .MuiPickersOutlinedInput-root': {
+                paddingInline: {
+                  xs: 1.25,
+                  md: 1.5,
+                  lg: 2,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                fontSize: 'calc(1rem + 1vw)',
               },
             },
           },
@@ -77,8 +115,9 @@ export const TimeInput = ({
             }
             aria-label="Add 15 minutes"
             data-testid={`${testIdPrefix}-plus`}
+            size="large"
           >
-            <AddIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
+            <AddIcon fontSize="inherit" sx={{ fontSize }} />
           </IconButton>
         </Tooltip>
         <Tooltip title="Subtract 15 minutes" placement="right">
@@ -88,8 +127,9 @@ export const TimeInput = ({
             }
             aria-label="Subtract 15 minutes"
             data-testid={`${testIdPrefix}-minus`}
+            size="large"
           >
-            <RemoveIcon fontSize="inherit" sx={{ fontSize: fontSize }} />
+            <RemoveIcon fontSize="inherit" sx={{ fontSize }} />
           </IconButton>
         </Tooltip>
       </Box>
