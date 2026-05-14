@@ -1,4 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
+
+async function fillTimePicker(page: Page, testIdPrefix: string, time: string) {
+  const group = page
+    .getByTestId(`${testIdPrefix}-input`)
+    .locator('xpath=ancestor::*[@role="group"]');
+  await group.click();
+  await page.keyboard.type(time.replace(':', ''));
+}
 
 test.describe('page basics', () => {
   test('has title', async ({ page }) => {
@@ -39,9 +47,9 @@ test.describe('links', () => {
 test.describe('@desktopOnly time calculations', () => {
   test('calculate total time', async ({ page }) => {
     await page.goto('');
-    await page.getByTestId('end-input').fill('18:30');
-    await page.getByTestId('start-input').fill('09:00');
-    await page.getByTestId('break-input').fill('00:30');
+    await fillTimePicker(page, 'end', '18:30');
+    await fillTimePicker(page, 'start', '09:00');
+    await fillTimePicker(page, 'break', '00:30');
     await expect(page.getByTestId('total-time')).toHaveText('09:00');
     await page.getByTestId('total-time').click();
     await expect(page.getByTestId('copy-snackbar-message')).toHaveText(
@@ -51,7 +59,7 @@ test.describe('@desktopOnly time calculations', () => {
 
   test('change start time with buttons', async ({ page }) => {
     await page.goto('');
-    await page.getByTestId('start-input').fill('09:05');
+    await fillTimePicker(page, 'start', '09:05');
     await page.getByTestId('start-plus').click();
     await expect(page.getByTestId('start-input')).toHaveValue('09:15');
     await page.getByTestId('start-minus').click();
@@ -60,7 +68,7 @@ test.describe('@desktopOnly time calculations', () => {
 
   test('change break time with buttons', async ({ page }) => {
     await page.goto('');
-    await page.getByTestId('break-input').fill('00:30');
+    await fillTimePicker(page, 'break', '00:30');
     await page.getByTestId('break-plus').click();
     await expect(page.getByTestId('break-input')).toHaveValue('00:45');
     await page.getByTestId('break-minus').click();
@@ -69,7 +77,7 @@ test.describe('@desktopOnly time calculations', () => {
 
   test('change end time with buttons', async ({ page }) => {
     await page.goto('');
-    await page.getByTestId('end-input').fill('18:30');
+    await fillTimePicker(page, 'end', '18:30');
     await page.getByTestId('end-plus').click();
     await expect(page.getByTestId('end-input')).toHaveValue('18:45');
     await page.getByTestId('end-minus').click();
